@@ -1,5 +1,6 @@
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
+import { getCommands } from "./command.js";
 
 const prompt = "POKEDEX > ";
 
@@ -22,12 +23,10 @@ export function startREPL() {
   });
   readlineInterace.prompt();
   readlineInterace.on("line", (line) => {
-    const cleanArr = cleanInput(line);
-    if (cleanArr.length === 0) {
-      readlineInterace.prompt();
-      return;
+    const command = getCommands()[cleanInput(line)[0]];
+    if (command) {
+      command.callback(getCommands());
     }
-    console.log(`Your command was: ${cleanArr[0]}`);
     readlineInterace.prompt();
   });
 }
