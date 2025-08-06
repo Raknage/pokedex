@@ -1,6 +1,6 @@
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
-import { commandMap } from "./command_map.js";
+import { commandMap, commandMapb } from "./command_map.js";
 import { CLICommand } from "./state.js";
 
 export function getCommands(): Record<string, CLICommand> {
@@ -17,8 +17,13 @@ export function getCommands(): Record<string, CLICommand> {
     },
     map: {
       name: "map",
-      description: "Fetch map names, 20 at a time",
+      description: "Fetch next 20 map names",
       callback: commandMap,
+    },
+    mapb: {
+      name: "mapb",
+      description: "Fetch previous 20 map names",
+      callback: commandMapb,
     },
   };
 }

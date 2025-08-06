@@ -1,39 +1,27 @@
 import { State } from "./state";
 
-type LocationArea = {
-  count: number;
-  next: string;
-  previous: string;
-  results: [
-    {
-      name: string;
-      url: string;
-    },
-  ];
-};
-
 export async function commandMap(state: State) {
-  try {
-    const url = "https://pokeapi.co/api/v2/location-area/";
-    const limit = 5;
-    const offset = 0;
-    const finalURL = `${url}?limit=${limit}&offset=${offset}`;
-    const res = await fetch(finalURL, {
-      method: "GET",
-      mode: "cors",
-      cache: "default",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`Response status: ${res.status}`);
-    }
-    const data: LocationArea = await res.json();
-    for (const area of data["results"]) {
-      console.log(area.name);
-    }
-  } catch (e) {
-    console.error(`Fetch failed: ${e}`);
+  const url = state.nextLocationURL ? state.nextLocationURL : undefined;
+  const locations = await state.pokeapi.fetchLocations(url);
+  state.nextLocationURL = locations.next;
+  state.prevLocationURL = locations.previous;
+  for (const area of locations["results"]) {
+    console.log(area.name);
+  }
+}
+
+export async function commandMapb(state: State) {
+  const url = state.prevLocationURL ? state.prevLocationURL : undefined;
+  if (!url) {
+    console.log("you're on the first page");
+    return;
+  }
+
+  const locations = await state.pokeapi.fetchLocations(url);
+
+  state.nextLocationURL = locations.next;
+  state.prevLocationURL = locations.previous;
+  for (const area of locations["results"]) {
+    console.log(area.name);
   }
 }

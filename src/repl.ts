@@ -11,7 +11,7 @@ export function cleanInput(input: string): string[] {
   return arr;
 }
 
-export function startREPL(state: State) {
+export async function startREPL(state: State) {
   state.interface.prompt();
   state.interface.on("line", (line) => {
     const command = state.commands[cleanInput(line)[0]];
