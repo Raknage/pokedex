@@ -1,9 +1,18 @@
+import { Cache, type CacheEntry } from "./pokecache.js";
+
 export class PokeAPI {
   static readonly #baseURL = "https://pokeapi.co/api/v2/location-area/";
+  // 1 min = 60000 ms; 60 min = 3600000 ms
+  readonly cache = new Cache(60000);
 
   constructor() {}
 
   async fetchLocations(url = PokeAPI.#baseURL): Promise<ShallowLocations> {
+    const cacheHit: CacheEntry<ShallowLocations> | undefined =
+      this.cache.get(url);
+    if (cacheHit) {
+      return cacheHit.val;
+    }
     const res = await fetch(url, {
       method: "GET",
       mode: "cors",
@@ -17,7 +26,8 @@ export class PokeAPI {
       throw new Error(`Response status: ${res.status}`);
     }
 
-    const data = await res.json();
+    const data: ShallowLocations = await res.json();
+    this.cache.add(url, data);
     return data;
   }
 

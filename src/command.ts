@@ -1,3 +1,4 @@
+import { commandCache, commandClearCache } from "./command_cache.js";
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
 import { commandMap, commandMapb } from "./command_map.js";
@@ -24,6 +25,16 @@ export function getCommands(): Record<string, CLICommand> {
       name: "mapb",
       description: "Fetch previous 20 map names",
       callback: commandMapb,
+    },
+    cache: {
+      name: "cache",
+      description: "Print current cache keys and their age",
+      callback: commandCache,
+    },
+    clr: {
+      name: "clr",
+      description: "Clear cache",
+      callback: commandClearCache,
     },
   };
 }
