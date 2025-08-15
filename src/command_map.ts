@@ -2,7 +2,7 @@ import { State } from "./state";
 
 export async function commandMap(state: State) {
   const url = state.nextLocationURL ? state.nextLocationURL : undefined;
-  const locations = await state.pokeapi.fetchLocations(url);
+  const locations = await state.pokeapi.fetchLocations();
   state.nextLocationURL = locations.next;
   state.prevLocationURL = locations.previous;
   for (const area of locations["results"]) {
@@ -17,7 +17,7 @@ export async function commandMapb(state: State) {
     return;
   }
 
-  const locations = await state.pokeapi.fetchLocations(url);
+  const locations = await state.pokeapi.fetchLocations();
 
   state.nextLocationURL = locations.next;
   state.prevLocationURL = locations.previous;

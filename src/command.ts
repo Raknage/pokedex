@@ -1,4 +1,5 @@
 import { commandCache, commandClearCache } from "./command_cache.js";
+import { commandCatch } from "./command_catch.js";
 import { commandExit } from "./command_exit.js";
 import { commandExplore } from "./command_explore.js";
 import { commandHelp } from "./command_help.js";
@@ -29,8 +30,13 @@ export function getCommands(): Record<string, CLICommand> {
     },
     explore: {
       name: "explore",
-      description: "Explore location",
+      description: "Usage: Explore <location>",
       callback: commandExplore,
+    },
+    catch: {
+      name: "catch",
+      description: "Usage: catch <pokemon>",
+      callback: commandCatch,
     },
     cache: {
       name: "cache",
