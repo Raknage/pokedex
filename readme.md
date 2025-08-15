@@ -1,8 +1,6 @@
 # Pokedex REPL
 
-A project for [boot.dev](https://www.boot.dev/) backend TypeScript course.
-
-[Build a Pokedex in TypeScript](https://www.boot.dev/courses/build-pokedex-cli-typescript)
+A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Build a Pokedex in TypeScript](https://www.boot.dev/courses/build-pokedex-cli-typescript)
 
 ### Tools used
 
@@ -19,3 +17,5 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course.
 
 - Do I really need so many type definitions. Should I just package them their own file?
 - What was I supposed to do with fetchLocation() in pokeapi.ts?
+- Need more error handling
+- The readline interface does not print the new line `POKEDEX > ` after callbacks. Should fix this.
