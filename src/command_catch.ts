@@ -1,7 +1,7 @@
 import { State } from "./state";
 
 export async function commandCatch(state: State, pokemon: string) {
-  console.log(`Throwing a pokeball at ${pokemon}...`);
+  console.log(`Throwing a Pokeball at ${pokemon}...`);
   const pokemonData = await state.pokeapi.fetchPokemon(pokemon);
   const baseExperience = pokemonData.base_experience * 2;
   const rand = Math.random() * 1000;
