@@ -4,8 +4,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 // Import all the functions we need to test or mock
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { loadFile, saveFile } from "./db_json";
-import type { State } from "./state";
+import { loadFile, saveFile } from "./db_json.js";
+import type { State } from "./state.js";
 
 // This tells Vitest to replace the real 'fs/promises' with a mock version
 vi.mock("node:fs/promises");

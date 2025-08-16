@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { caughtPokemon, State } from "./state";
+import type { caughtPokemon, State } from "./state.js";
 
 const FILEPATH = "./db.json";
 

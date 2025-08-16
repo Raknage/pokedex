@@ -1,4 +1,4 @@
-import { type State } from "./state";
+import { type State } from "./state.js";
 
 export function cleanInput(input: string): string[] {
   const arr = input
@@ -21,16 +21,23 @@ export async function startREPL(state: State) {
       return;
     }
 
-    const command = state.commands[args[0]];
+    const [commandName, ...commandArgs] = args;
 
-    if (!command) {
+    if (commandName === undefined) {
+      state.interface.prompt();
+      return;
+    }
+
+    const command = state.commands[commandName];
+
+    if (command === undefined) {
       console.log(`Type "help" for a list of commands.`);
       state.interface.prompt();
       return;
     }
 
     try {
-      console.log(await command.callback(state, ...args.slice(1)));
+      console.log(await command.callback(state, ...commandArgs));
     } catch (e) {
       console.log(`${(e as Error).name}: ${(e as Error).message}`);
     }

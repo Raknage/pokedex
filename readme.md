@@ -13,6 +13,8 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Buil
 - [JSON to TS converter](https://transform.tools/json-to-typescript)
 - [PokeAPI](https://pokeapi.co/)
 - Gemini cli (after tutorial)
+- [Ink](https://github.com/vadimdemedes/ink)
+- React
 
 ## Thoughts
 
@@ -20,12 +22,12 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Buil
 - ~~What was I supposed to do with fetchLocation() in pokeapi.ts?~~ **DELETED**
 - ~~Need more error handling~~ **ALL COMMANDS HANDLED**
 - ~~The readline interface does not print the new line `POKEDEX > ` after callbacks. Should fix this.~~ **FIXED**
+- Migrating my project to ink scaffolding with different typescript settings was a real pain in the ass
 
 ## Ideas for Extending the Project
 ### [from Boot.dev](https://www.boot.dev/lessons/a634e1eb-5c90-4463-8164-484def656040)
 
 - Simulate battles between pokemon
-- Add more unit tests
 - Keep pokemon in a "party" and allow them to level up
 - Allow for pokemon that are caught to evolve after a set amount of time
 - Use the PokeAPI to make exploration more interesting. For example, rather than typing the names of areas, maybe you are given choices of areas and just type "left" or "right"
@@ -33,5 +35,3 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Buil
 - Adding support for different types of balls (Pokeballs, Great Balls, Ultra Balls, etc), which have different chances of catching pokemon
 
 ### My ideas
-
-- [Ink](https://github.com/vadimdemedes/ink)

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Cache } from "./pokecache";
+import { Cache } from "./pokecache.js";
 
 describe("cache", () => {
   const cache = new Cache(1000 * 60 * 5);

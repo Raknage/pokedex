@@ -1,4 +1,4 @@
-import { State } from "../state";
+import { State } from "../state.js";
 
 export async function commandCache(state: State): Promise<string> {
   let output = "";

@@ -1,5 +1,5 @@
-import { ShallowLocations } from "src/pokeapi";
-import { State } from "../state";
+import { ShallowLocations } from "src/core/pokeapi.js";
+import { State } from "../state.js";
 
 export async function commandMap(state: State): Promise<string> {
   const locations = await state.pokeapi.fetchLocations(state.nextLocationURL);

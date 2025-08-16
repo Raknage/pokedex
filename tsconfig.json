@@ -1,20 +1,23 @@
 {
+  "extends": "@sindresorhus/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
     "target": "esnext",
-    "module": "esnext",
-    "rootDir": "./src",
+    "module": "NodeNext",
+    "rootDir": "./",
     "outDir": "./dist",
     "strict": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "noUncheckedIndexedAccess": false,
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "src/ui"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

@@ -1,13 +1,19 @@
-import { State } from "../state";
+import { State } from "../state.js";
 
 export async function commandInspect(
   state: State,
   pokemonName: string,
 ): Promise<string> {
   const pokemon = state.caughtPokemon[pokemonName];
-  if (!pokemon) {
+  if (pokemon === undefined) {
     return `You have not caught ${pokemonName} yet!`;
   }
+
+  if (!pokemon.stats || pokemon.stats.length < 6) {
+    return `Could not retrieve full stats for ${pokemonName}.`;
+  }
+
+  const [hp, att, def, spAtt, spDef, spd] = pokemon.stats;
 
   let output = "";
 
@@ -15,12 +21,12 @@ export async function commandInspect(
 Height: ${pokemon.height}
 Weight: ${pokemon.weight}
 Stats:
-  -hp: ${pokemon.stats[0].base_stat}
-  -attack: ${pokemon.stats[1].base_stat}
-  -defense: ${pokemon.stats[2].base_stat}
-  -special-attack: ${pokemon.stats[3].base_stat}
-  -special-defense: ${pokemon.stats[4].base_stat}
-  -speed: ${pokemon.stats[5].base_stat}
+  -hp: ${hp.base_stat}
+  -attack: ${att.base_stat}
+  -defense: ${def.base_stat}
+  -special-attack: ${spAtt.base_stat}
+  -special-defense: ${spDef.base_stat}
+  -speed: ${spd.base_stat}
 Types:\n`;
 
   pokemon.types.forEach((t) => {
