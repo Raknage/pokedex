@@ -11,7 +11,7 @@ export async function commandPokedex(state: State): Promise<string> {
   output += "Your Pokedex:\n";
 
   Object.keys(pokedex).forEach((p) => {
-    output += `- ${p}`;
+    output += `- ${p}\n`;
   });
 
   return output;

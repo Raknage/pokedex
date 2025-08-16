@@ -6,6 +6,7 @@ import {
 import { stdin as input, stdout as output } from "node:process";
 import { getCommands } from "./commands/commands.js";
 import { PokeAPI, PokemonData } from "./pokeapi.js";
+import { loadFile } from "./db_json.js";
 
 export type CLICommand = {
   name: string;
@@ -13,13 +14,15 @@ export type CLICommand = {
   callback: (state: State, ...args: string[]) => Promise<string>;
 };
 
+export type caughtPokemon = Record<string, PokemonData>;
+
 export type State = {
   interface: Interface;
   commands: Record<string, CLICommand>;
   pokeapi: PokeAPI;
   nextLocationURL: string;
   prevLocationURL: string;
-  caughtPokemon: Record<string, PokemonData>;
+  caughtPokemon: caughtPokemon;
 };
 
 const prompt = "POKEDEX > ";
@@ -31,7 +34,7 @@ const completer: Completer = (line: string) => {
   return [hits.length ? hits : completions, line];
 };
 
-export function initState(cacheDelay: number): State {
+export async function initState(cacheDelay: number): Promise<State> {
   const rlInterface = createInterface({
     input,
     output,
@@ -45,6 +48,6 @@ export function initState(cacheDelay: number): State {
     pokeapi: new PokeAPI(cacheDelay),
     nextLocationURL: "",
     prevLocationURL: "",
-    caughtPokemon: {},
+    caughtPokemon: await loadFile(),
   };
 }
