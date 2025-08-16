@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { Cache } from "./pokecache";
 
 describe("cache", () => {
-  const cache = new Cache();
+  const cache = new Cache(1000 * 60 * 5);
   // must cast types as tuple or const for the destructuring to work with TS
   const testData1 = [
     "https://pokeapi.co/api/v2/location-area/",

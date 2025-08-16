@@ -1,4 +1,4 @@
-import { State } from "./state";
+import { State } from "../state";
 
 export async function commandCache(state: State) {
   for (const [key, value] of state.pokeapi.cache.getCacheEntries()) {

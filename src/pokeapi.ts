@@ -2,26 +2,23 @@ import { Cache, type CacheEntry } from "./pokecache.js";
 
 export class PokeAPI {
   static readonly #baseURL = "https://pokeapi.co/api/v2/";
-  // 1 min = 60000 ms; 60 min = 3600000 ms
-  readonly cache = new Cache(60000);
+  readonly cache: Cache;
 
-  constructor() {}
+  constructor(cacheDelay: number) {
+    this.cache = new Cache(cacheDelay);
+  }
 
-  async fetchLocations(): Promise<ShallowLocations> {
-    const url = `${PokeAPI.#baseURL}location-area/`;
+  async fetchLocations(targetURL?: string): Promise<ShallowLocations> {
+    // apparently you can do this in JS to assign the first truthy value to the variable
+    const url = targetURL || `${PokeAPI.#baseURL}location-area/`;
     const cacheHit: CacheEntry<ShallowLocations> | undefined =
       this.cache.get(url);
     if (cacheHit) {
       return cacheHit.val;
     }
-    const res = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-      cache: "default",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+
+    // apparently fetch only needs the url
+    const res = await fetch(url);
 
     if (!res.ok) {
       throw new Error(`Response status: ${res.status}`);
@@ -38,14 +35,7 @@ export class PokeAPI {
     if (cacheHit) {
       return cacheHit.val;
     }
-    const res = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-      cache: "default",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(url);
 
     if (!res.ok) {
       throw new Error(`Response status: ${res.status}`);
@@ -62,14 +52,7 @@ export class PokeAPI {
     if (cacheHit) {
       return cacheHit.val;
     }
-    const res = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-      cache: "default",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(url);
 
     if (!res.ok) {
       throw new Error(`Response status: ${res.status}`);
@@ -79,16 +62,14 @@ export class PokeAPI {
     this.cache.add(url, data);
     return data;
   }
-
-  // async fetchLocation(name: string): Promise<Location> {}
 }
 
 // Location types
 
 export type ShallowLocations = {
   count: number;
-  next: string | null;
-  previous: string | null;
+  next: string;
+  previous: string;
   results: Location[];
 };
 

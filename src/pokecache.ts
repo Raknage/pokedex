@@ -22,8 +22,8 @@ export class Cache {
   static #reapIntervalId: NodeJS.Timeout | undefined = undefined;
   static #interval: number;
 
-  constructor(interval: number = 60000) {
-    Cache.#interval = interval;
+  constructor(cacheDelay: number) {
+    Cache.#interval = cacheDelay;
     this.#startReapLoop();
   }
 

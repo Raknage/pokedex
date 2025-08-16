@@ -1,6 +1,10 @@
-import { createInterface, type Interface } from "readline";
+import {
+  createInterface,
+  type Interface,
+  type Completer,
+} from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { getCommands } from "./command.js";
+import { getCommands } from "./commands/commands.js";
 import { PokeAPI, PokemonData } from "./pokeapi.js";
 
 export type CLICommand = {
@@ -13,28 +17,34 @@ export type State = {
   interface: Interface;
   commands: Record<string, CLICommand>;
   pokeapi: PokeAPI;
-  nextLocationURL: string | null;
-  prevLocationURL: string | null;
+  nextLocationURL: string;
+  prevLocationURL: string;
   caughtPokemon: Record<string, PokemonData>;
 };
 
 const prompt = "POKEDEX > ";
+const commands = getCommands();
 
-export function initState(): State {
+const completer: Completer = (line: string) => {
+  const completions = Object.keys(commands);
+  const hits = completions.filter((c) => c.startsWith(line));
+  return [hits.length ? hits : completions, line];
+};
+
+export function initState(cacheDelay: number): State {
   const rlInterface = createInterface({
     input,
     output,
     prompt,
+    completer,
   });
-  const commands = getCommands();
-  const pokeapi = new PokeAPI();
 
   return {
     interface: rlInterface,
     commands: commands,
-    pokeapi: pokeapi,
-    nextLocationURL: null,
-    prevLocationURL: null,
+    pokeapi: new PokeAPI(cacheDelay),
+    nextLocationURL: "",
+    prevLocationURL: "",
     caughtPokemon: {},
   };
 }
