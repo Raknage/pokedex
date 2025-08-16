@@ -1,14 +1,18 @@
 import { State } from "../state";
 
-export async function commandPokedex(state: State) {
+export async function commandPokedex(state: State): Promise<string> {
   const pokedex = state.caughtPokemon;
+  let output = "";
   // if (!pokedex) {
   //   console.log(`You have no pokemon yet!`);
   //   return;
   // }
 
-  console.log("Your Pokedex:");
+  output += "Your Pokedex:\n";
+
   Object.keys(pokedex).forEach((p) => {
-    console.log(`- ${p}`);
+    output += `- ${p}`;
   });
+
+  return output;
 }

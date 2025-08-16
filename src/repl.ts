@@ -30,7 +30,7 @@ export async function startREPL(state: State) {
     }
 
     try {
-      await command.callback(state, ...args.slice(1));
+      console.log(await command.callback(state, ...args.slice(1)));
     } catch (e) {
       console.log(`${(e as Error).name}: ${(e as Error).message}`);
     }

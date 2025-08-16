@@ -58,14 +58,12 @@ export class Cache {
   #reap() {
     for (const [key, val] of Cache.#cache) {
       if (val.createdAt < Date.now() - Cache.#interval) {
-        console.log(`Reap old cache for "${key}"`);
         Cache.#cache.delete(key);
       }
     }
   }
 
   #startReapLoop() {
-    console.log(`Starting cache reaping loop with interval ${Cache.#interval}`);
     Cache.#reapIntervalId = setInterval(this.#reap, Cache.#interval);
   }
 
@@ -75,11 +73,10 @@ export class Cache {
   }
 
   /**
-   * Clears the cache entries and prints "Cache cleared"
+   * Clears the cache entries
    */
   clearCache() {
     Cache.#cache.clear();
-    console.log("Cache cleared");
   }
 
   /**

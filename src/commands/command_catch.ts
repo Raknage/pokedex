@@ -1,6 +1,9 @@
 import { State } from "../state";
 
-export async function commandCatch(state: State, pokemon: string) {
+export async function commandCatch(
+  state: State,
+  pokemon: string,
+): Promise<string> {
   console.log(`Throwing a Pokeball at ${pokemon}...`);
 
   const pokemonData = await state.pokeapi.fetchPokemon(pokemon);
@@ -11,11 +14,10 @@ export async function commandCatch(state: State, pokemon: string) {
 
   // pikachu 112
   if (baseExperience > rand) {
-    console.log(`${pokemon} escaped!`);
-    return;
+    return `${pokemon} escaped!`;
   }
 
   state.caughtPokemon[pokemonData.name] = pokemonData;
 
-  console.log(`${pokemon} was caught!`);
+  return `${state.caughtPokemon[pokemon].name} was caught!`;
 }

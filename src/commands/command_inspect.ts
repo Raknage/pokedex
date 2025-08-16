@@ -1,14 +1,17 @@
 import { State } from "../state";
 
-export async function commandInspect(state: State, pokemonName: string) {
+export async function commandInspect(
+  state: State,
+  pokemonName: string,
+): Promise<string> {
   const pokemon = state.caughtPokemon[pokemonName];
   if (!pokemon) {
-    console.log(`You have not caught ${pokemonName} yet!`);
-    return;
+    return `You have not caught ${pokemonName} yet!`;
   }
 
-  console.log(`
-Name: ${pokemon.name}
+  let output = "";
+
+  output += `Name: ${pokemon.name}
 Height: ${pokemon.height}
 Weight: ${pokemon.weight}
 Stats:
@@ -18,8 +21,11 @@ Stats:
   -special-attack: ${pokemon.stats[3].base_stat}
   -special-defense: ${pokemon.stats[4].base_stat}
   -speed: ${pokemon.stats[5].base_stat}
-Types:`);
+Types:\n`;
+
   pokemon.types.forEach((t) => {
-    console.log(`  - ${t.type.name}`);
+    output += `  - ${t.type.name}\n`;
   });
+
+  return output;
 }

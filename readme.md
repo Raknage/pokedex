@@ -23,10 +23,8 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Buil
 ## Ideas for Extending the Project
 ### [from Boot.dev](https://www.boot.dev/lessons/a634e1eb-5c90-4463-8164-484def656040)
 
-- Implement the repl Node module
 - Simulate battles between pokemon
 - Add more unit tests
-- Refactor your code to organize it better and make it more testable
 - Keep pokemon in a "party" and allow them to level up
 - Allow for pokemon that are caught to evolve after a set amount of time
 - Persist a user's Pokedex to disk so they can save progress between sessions

@@ -1,26 +1,32 @@
+import { ShallowLocations } from "src/pokeapi";
 import { State } from "../state";
 
-export async function commandMap(state: State) {
+export async function commandMap(state: State): Promise<string> {
   const locations = await state.pokeapi.fetchLocations(state.nextLocationURL);
   state.nextLocationURL = locations.next;
   state.prevLocationURL = locations.previous;
-  for (const area of locations["results"]) {
-    console.log(area.name);
-  }
+
+  return formatLocations(locations);
 }
 
-export async function commandMapb(state: State) {
-  const url = state.prevLocationURL ? state.prevLocationURL : undefined;
-  if (!url) {
-    console.log("you're on the first page");
-    return;
+export async function commandMapb(state: State): Promise<string> {
+  if (!state.prevLocationURL) {
+    return "you're on the first page";
   }
 
-  const locations = await state.pokeapi.fetchLocations();
+  const locations = await state.pokeapi.fetchLocations(state.prevLocationURL);
 
   state.nextLocationURL = locations.next;
   state.prevLocationURL = locations.previous;
-  for await (const area of locations["results"]) {
-    console.log(area.name);
+
+  return formatLocations(locations);
+}
+
+async function formatLocations(locations: ShallowLocations): Promise<string> {
+  let output = "";
+  for (const area of locations["results"]) {
+    output += `${area.name}\n`;
   }
+
+  return output;
 }
