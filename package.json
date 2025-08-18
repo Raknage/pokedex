@@ -2,13 +2,13 @@
   "name": "pokedex",
   "version": "1.0.0",
   "main": "index.js",
-  "bin": "dist/cli.js",
+  "bin": "dist/src/ui/cli.js",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "start": "node dist/main.js",
+    "start": "node dist/src/ui/cli.js",
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "eslint . && prettier --check ."
@@ -18,31 +18,31 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "ink": "^4.1.0",
-    "meow": "^11.0.0",
-    "react": "^18.2.0"
+    "ink": "^6.2.0",
+    "ink-text-input": "^6.0.0",
+    "meow": "^13.2.0",
+    "react": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
-    "@sindresorhus/tsconfig": "^3.0.1",
-    "@types/node": "^24.1.0",
-    "@types/react": "^18.0.32",
-    "@typescript-eslint/eslint-plugin": "^8.39.1",
-    "@typescript-eslint/parser": "^5.62.0",
-    "chalk": "^5.2.0",
-    "eslint": "^8.57.1",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
+    "chalk": "^5.6.0",
+    "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-tsdoc": "^0.4.0",
     "globals": "^16.3.0",
-    "ink-testing-library": "^3.0.0",
+    "ink-testing-library": "^4.0.0",
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.3",
-    "typescript-eslint": "^8.39.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.40.0",
     "vitest": "^3.2.4"
   },
   "files": [
