@@ -4,6 +4,12 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Buil
 
 Implementing Ink for UI after course finish.
 
+## Features
+
+- [x] very nice UI
+- [x] command hints
+- [] tab completion
+
 ## Tools used
 
 - WSL enviroment

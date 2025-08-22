@@ -1,6 +1,6 @@
 // import React from "react";
 import { useState, useEffect } from "react";
-import { initState, State, prompt } from "../core/state.js";
+import { initState, State, prompt, CLICommand } from "../core/state.js";
 import { cleanInput } from "../core/repl.js";
 import { Text, Box, useFocus } from "ink";
 import TextInput from "ink-text-input";
@@ -19,10 +19,17 @@ const ROLE_COLORS = {
   error: "red",
 };
 
+// const completer: Completer = (line: string) => {
+//   const completions = Object.keys(commands);
+//   const hits = completions.filter((c) => c.startsWith(line));
+//   return [hits.length ? hits : completions, line];
+// };
+
 export default function App() {
   const [state, setState] = useState<State | null>(null);
   const [output, setOutput] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
+  const [completions, setCompletions] = useState<[string, CLICommand][]>([]);
   useFocus();
 
   useEffect(() => {
@@ -89,6 +96,18 @@ export default function App() {
     setInput("");
   }
 
+  function handleInput(input: string) {
+    setInput(input);
+    if (!state) {
+      setCompletions([]);
+      return;
+    }
+    const filteredCompletions = Object.entries(state.commands).filter(
+      ([cmd, _obj]) => cmd.startsWith(input),
+    );
+    setCompletions(filteredCompletions);
+  }
+
   return (
     <>
       <Gradient name="summer">
@@ -110,9 +129,24 @@ export default function App() {
           <Text color="blue">{prompt}</Text>
           <TextInput
             value={input}
-            onChange={setInput}
+            onChange={handleInput}
             onSubmit={handleCommand}
           />
+        </Box>
+
+        <Box flexDirection="column">
+          {completions.length > 0 &&
+            input.length > 0 &&
+            completions.map(([key, cmd]) => (
+              <Box key={key} flexDirection="row">
+                <Box width={15}>
+                  <Text dimColor color="white">
+                    {key}
+                  </Text>
+                </Box>
+                <Text>{cmd.description}</Text>
+              </Box>
+            ))}
         </Box>
       </TitledBox>
     </>
