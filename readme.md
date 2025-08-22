@@ -2,6 +2,8 @@
 
 A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Build a Pokedex in TypeScript](https://www.boot.dev/courses/build-pokedex-cli-typescript)
 
+Implementing Ink for UI after course finish.
+
 ## Tools used
 
 - WSL enviroment
@@ -25,6 +27,7 @@ A project for [boot.dev](https://www.boot.dev/) backend TypeScript course: [Buil
 - Migrating my project to ink scaffolding with different typescript settings was a real pain in the ass
 
 ## Ideas for Extending the Project
+
 ### [from Boot.dev](https://www.boot.dev/lessons/a634e1eb-5c90-4463-8164-484def656040)
 
 - Simulate battles between pokemon

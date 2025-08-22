@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "start": "node dist/src/ui/cli.js",
+    "start": "tsc && node dist/src/ui/cli.js",
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "eslint . && prettier --check ."

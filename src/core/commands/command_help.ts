@@ -6,7 +6,7 @@ export async function commandHelp(state: State): Promise<string> {
 
   for (const key in state.commands) {
     const command = state.commands[key];
-    output += `${command.name}: ${command.description}`;
+    output += `${command.name}: ${command.description}\n`;
   }
 
   return output;

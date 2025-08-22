@@ -25,7 +25,7 @@ export type State = {
   caughtPokemon: caughtPokemon;
 };
 
-const prompt = "POKEDEX > ";
+export const prompt = "POKEDEX > ";
 const commands = getCommands();
 
 const completer: Completer = (line: string) => {
