@@ -4,6 +4,9 @@ import { initState, State, prompt } from "../core/state.js";
 import { cleanInput } from "../core/repl.js";
 import { Text, Box, useFocus } from "ink";
 import TextInput from "ink-text-input";
+import BigText from "ink-big-text";
+import Gradient from "ink-gradient";
+import { TitledBox } from "@mishieck/ink-titled-box";
 
 type Message = {
   role: "user" | "cmd" | "error";
@@ -88,16 +91,30 @@ export default function App() {
 
   return (
     <>
-      {output.map((msg, index) => (
-        <Text color={ROLE_COLORS[msg.role]} key={index}>
-          {msg.text}
-        </Text>
-      ))}
+      <Gradient name="summer">
+        <BigText text="Pokedex" />
+      </Gradient>
+      <TitledBox
+        borderStyle="round"
+        borderColor="yellow"
+        titles={["Pokedex"]}
+        flexDirection="column"
+      >
+        {output.map((msg, index) => (
+          <Text color={ROLE_COLORS[msg.role]} key={index}>
+            {msg.text}
+          </Text>
+        ))}
 
-      <Box borderStyle="single" borderColor="blue">
-        <Text color="blue">{prompt}</Text>
-        <TextInput value={input} onChange={setInput} onSubmit={handleCommand} />
-      </Box>
+        <Box borderStyle="single" borderColor="blue">
+          <Text color="blue">{prompt}</Text>
+          <TextInput
+            value={input}
+            onChange={setInput}
+            onSubmit={handleCommand}
+          />
+        </Box>
+      </TitledBox>
     </>
   );
 }
