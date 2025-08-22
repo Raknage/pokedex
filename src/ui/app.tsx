@@ -5,9 +5,20 @@ import { cleanInput } from "../core/repl.js";
 import { Text, Box, useFocus } from "ink";
 import TextInput from "ink-text-input";
 
+type Message = {
+  role: "user" | "cmd" | "error";
+  text: string;
+};
+
+const ROLE_COLORS = {
+  user: "blue",
+  cmd: "yellow",
+  error: "red",
+};
+
 export default function App() {
   const [state, setState] = useState<State | null>(null);
-  const [output, setOutput] = useState<string[]>([]);
+  const [output, setOutput] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
   useFocus();
 
@@ -22,45 +33,67 @@ export default function App() {
 
   async function handleCommand(input: string) {
     if (input === "") {
-      // console.log(output);
-      setOutput((prevOutput) => [...prevOutput, prompt]);
       return;
     }
+
+    // add user input to output array
+    setOutput((prevOutput) => [
+      ...prevOutput,
+      { role: "user", text: `${prompt}${input}` },
+    ]);
 
     const args = cleanInput(input);
     const [commandName, ...commandArgs] = args;
 
     // Ensure that state can't be null here to satisfy TS
     if (!state) {
-      setOutput((prevOutput) => [...prevOutput, "State not initialized"]);
+      setOutput((prevOutput) => [
+        ...prevOutput,
+        { role: "error", text: "State not initialized" },
+      ]);
       return;
     }
     const command = state.commands[commandName];
 
+    // error if command is not valid
     if (command === undefined) {
-      setOutput((prevOutput) => [...prevOutput, "Unknown command"]);
+      setOutput((prevOutput) => [
+        ...prevOutput,
+        { role: "error", text: "Unknown command" },
+      ]);
       setInput("");
       return;
     }
 
     let cmdOutput = "";
 
+    // execute command
     try {
       cmdOutput = await command.callback(state, ...commandArgs);
     } catch (e) {
-      setOutput((prevOutput) => [...prevOutput, `${(e as Error).message}`]);
+      setOutput((prevOutput) => [
+        ...prevOutput,
+        { role: "error", text: `${(e as Error).message}` },
+      ]);
       return;
     }
 
+    setOutput((prevOutput) => [
+      ...prevOutput,
+      { role: "cmd", text: cmdOutput },
+    ]);
+
     setInput("");
-    setOutput((prevOutput) => [...prevOutput, cmdOutput]);
   }
 
   return (
     <>
-      {output.map((line, index) => (
-        <Text key={index}>{line}</Text>
+      {output.map((msg, index) => (
+        <Text color={ROLE_COLORS[msg.role]} key={index}>
+          {msg.text}
+        </Text>
       ))}
+
       <Box borderStyle="single" borderColor="blue">
         <Text color="blue">{prompt}</Text>
         <TextInput value={input} onChange={setInput} onSubmit={handleCommand} />
